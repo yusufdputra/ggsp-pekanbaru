@@ -1,7 +1,9 @@
 <!-- jQuery  -->
 </div>
 
-
+<!-- Form wizard -->
+<script src="{{asset('adminto/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js')}}"></script>
+<script src="{{asset('adminto/plugins/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 <!-- Toastr js -->
 <script src="{{asset('adminto/plugins/toastr/toastr.min.js')}}"></script>
 <script src="{{asset('adminto/js/popper.min.js')}}"></script>
@@ -78,13 +80,21 @@
             autoclose: true,
             todayHighlight: true, 
         });
+
+        // Date Picker
+        jQuery('#datepicker').datepicker();
+            jQuery('#datepicker-autoclose2').datepicker({
+                format: "dd-MM-yyyy",
+                autoclose: true,
+                todayHighlight: true
+            });
         // Default Datatable
         $('#datatable').DataTable();
 
         //Buttons examples
         var table = $('#datatable-buttons').DataTable({
             lengthChange: false,
-            buttons: ['copy', 'excel', 'pdf']
+            buttons: ['excel']
         });
 
         jQuery('.timepicker2').timepicker({

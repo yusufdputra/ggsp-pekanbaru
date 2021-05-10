@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -19,16 +20,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'id',
-        'name',
-        'email',
+        'username',
         'password',
-        'nip',
-        'nomor_hp',
-        'jenis_kelamin',
-        'golongan',
-        'jabatan',
-        'id_bidang'
+        'deleted_at'
     ];
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -50,9 +46,19 @@ class User extends Authenticatable
     ];
 
   
-
-    public function agenda()
+    public function sales()
     {
-        return $this->hasOne(Agenda::class, 'id', 'tujuan_orang');
+        return $this->belongsToMany(Sales::class);
     }
+
+    public function agen()
+    {
+        return $this->belongsToMany(Agen::class);
+    }
+    public function saless()
+    {
+        return $this->hasOne(Sales::class, 'id_user', 'id');
+    }
+    
+   
 }
